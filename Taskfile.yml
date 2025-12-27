@@ -1,5 +1,9 @@
 version: "3"
 
+vars:
+  GOFUMPT: go run mvdan.cc/gofumpt@latest
+  STATICCHECK: go run honnef.co/go/tools/cmd/staticcheck@latest
+
 tasks:
   default:
     desc: Build everything
@@ -51,3 +55,35 @@ tasks:
     deps: [build:frontend]
     cmds:
       - goreleaser release --snapshot --clean
+
+  # ============================================================================
+  # Precommit checks
+  # ============================================================================
+
+  fmt:
+    desc: Format code with gofumpt
+    cmds:
+      - "{{.GOFUMPT}} -w ."
+
+  fmt:check:
+    desc: Check code formatting
+    cmds:
+      - "{{.GOFUMPT}} -d . | grep . && exit 1 || exit 0"
+
+  staticcheck:
+    desc: Run staticcheck
+    cmds:
+      - "{{.STATICCHECK}} ./..."
+
+  vet:
+    desc: Run go vet
+    cmds:
+      - go vet ./...
+
+  precommit:
+    desc: Run all precommit checks
+    cmds:
+      - task: fmt:check
+      - task: vet
+      - task: staticcheck
+      - echo "All precommit checks passed."

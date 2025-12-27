@@ -18,7 +18,7 @@ import (
 )
 
 var (
-	ErrReadOnly     = errors.New("storage is read-only")
+	ErrReadOnly       = errors.New("storage is read-only")
 	ErrStreamNotFound = errors.New("stream not found")
 )
 
