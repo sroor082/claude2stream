@@ -1,0 +1,53 @@
+version: "3"
+
+tasks:
+  default:
+    desc: Build everything
+    deps: [build]
+
+  build:
+    desc: Build frontend and Go binary
+    deps: [build:frontend]
+    cmds:
+      - go build -o claude2stream .
+    sources:
+      - "*.go"
+      - webui/dist/**/*
+
+  build:frontend:
+    desc: Build the Vite frontend
+    dir: webui
+    cmds:
+      - pnpm install
+      - pnpm build
+    sources:
+      - package.json
+      - pnpm-lock.yaml
+      - src/**/*
+      - index.html
+      - vite.config.*
+    generates:
+      - dist/**/*
+
+  dev:
+    desc: Run frontend dev server
+    dir: webui
+    cmds:
+      - pnpm dev
+
+  run:
+    desc: Build and run the server
+    deps: [build]
+    cmds:
+      - ./claude2stream
+
+  clean:
+    desc: Remove build artifacts
+    cmds:
+      - rm -rf claude2stream webui/dist
+
+  release:snapshot:
+    desc: Test goreleaser locally (snapshot)
+    deps: [build:frontend]
+    cmds:
+      - goreleaser release --snapshot --clean

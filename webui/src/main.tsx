@@ -214,7 +214,7 @@ const sessionRoute = createRoute({
 })
 
 const routeTree = rootRoute.addChildren([indexRoute, sessionRoute])
-const router = createRouter({ routeTree })
+const router = createRouter({ routeTree, basepath: '/ui' })
 
 // ============================================================================
 // Components

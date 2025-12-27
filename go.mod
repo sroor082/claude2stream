@@ -1,4 +1,4 @@
-module github.com/cbro/claude2ds
+module github.com/broady/claude2stream
 
 go 1.25.4
 

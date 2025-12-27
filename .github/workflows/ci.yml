@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+          cache-dependency-path: webui/pnpm-lock.yaml
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Frontend install
+        run: pnpm install --frozen-lockfile
+        working-directory: webui
+
+      - name: Frontend typecheck
+        run: pnpm exec tsc --noEmit
+        working-directory: webui
+
+      - name: Frontend build
+        run: pnpm exec vite build
+        working-directory: webui
+
+      - name: Go test
+        run: go test -v ./...
