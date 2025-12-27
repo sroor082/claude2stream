@@ -146,7 +146,7 @@ func offsetFromInt(n int64) durablestream.Offset {
 }
 
 func offsetToInt(o durablestream.Offset) int64 {
-	if o == durablestream.ZeroOffset {
+	if o == durablestream.ZeroOffset || string(o) == "-1" {
 		return 0
 	}
 	n, _ := strconv.ParseInt(strings.TrimLeft(string(o), "0"), 10, 64)
@@ -230,7 +230,7 @@ func (s *ClaudeStorage) Head(ctx context.Context, streamID string) (*durablestre
 	}
 
 	return &durablestream.StreamInfo{
-		ContentType: "application/x-ndjson",
+		ContentType: "application/json",
 		NextOffset:  offsetFromInt(info.Size()),
 	}, nil
 }
@@ -264,9 +264,9 @@ func (s *ClaudeStorage) Read(ctx context.Context, streamID string, offset durabl
 	bytesRead := 0
 
 	scanner := bufio.NewScanner(f)
-	// Handle potentially large lines
+	// Handle potentially large lines (some history entries can be >1MB)
 	buf := make([]byte, 0, 64*1024)
-	scanner.Buffer(buf, 1024*1024)
+	scanner.Buffer(buf, 16*1024*1024) // 16MB max line size
 
 	for scanner.Scan() {
 		line := scanner.Bytes()
@@ -276,6 +276,7 @@ func (s *ClaudeStorage) Read(ctx context.Context, streamID string, offset durabl
 			break
 		}
 
+		// For JSON mode, store raw JSON object (handler will format as array)
 		data := make([]byte, len(line))
 		copy(data, line)
 
@@ -305,6 +306,9 @@ func (s *ClaudeStorage) Read(ctx context.Context, streamID string, offset durabl
 
 // Subscribe returns a channel notified when new data arrives.
 func (s *ClaudeStorage) Subscribe(ctx context.Context, streamID string, offset durablestream.Offset) (<-chan durablestream.Offset, error) {
+	// Strip leading slash to match watchLoop's streamID format
+	streamID = strings.TrimPrefix(streamID, "/")
+
 	_, err := s.getPath(streamID)
 	if err != nil {
 		return nil, err
